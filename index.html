@@ -1,19 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-    <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projector Window</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+    <div id="video-container">
+      <iframe
+        id="video-player"
+        width="100%"
+        height="100%"
+        src="https://www.youtube.com/embed/UStWXaydAg4?autoplay=1"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var videoPlayer = document.getElementById('video-player');
+        videoPlayer.requestFullscreen();
+      });
+    </script>
   </body>
 </html>
