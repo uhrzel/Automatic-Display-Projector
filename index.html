@@ -6,34 +6,31 @@
     <title>Projector Window</title>
     <style>
       body {
-        margin: 0;
-        padding: 0;
-        background-color: black;
-        color: white;
         font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        background-color: #f0f0f0;
+        text-align: center;
+        padding-top: 50px;
+      }
+      h1 {
+        color: #333;
       }
     </style>
-  </head>
-  <body>
-    <div id="video-container">
-      <iframe
-        id="video-player"
-        width="100%"
-        height="100%"
-        src="https://www.youtube.com/embed/UStWXaydAg4?autoplay=1"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var videoPlayer = document.getElementById('video-player');
-        videoPlayer.requestFullscreen();
+      window.addEventListener('DOMContentLoaded', () => {
+        const statusText = document.getElementById('status-text');
+
+        window.parent.postMessage({ type: 'get-app-status' }, '*');
+
+        window.addEventListener('message', (event) => {
+          console.log('Received message:', event.data);
+          if (event.data && event.data.type === 'app-status') {
+            statusText.textContent = event.data.message;
+          }
+        });
       });
     </script>
+  </head>
+  <body>
+    <h1 id="status-text">Loading...</h1>
   </body>
 </html>
